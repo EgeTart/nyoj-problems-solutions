@@ -258,3 +258,58 @@ int main() {
     return 0;
 }
 ```
+
+##problem-33 蛇形填数
+描述
+
+在 n * n方阵里填入1,2,...,n*n,要求填成蛇形。例如n=4时方阵为：  
+10 11 12 1  
+9 16 13 2  
+8 15 14 3  
+7 6 5 4    
+
+```c
+#include <stdio.h>
+
+int main() {
+    
+    int matrix[110][110] = {0};
+    
+    int n;
+    scanf("%d", &n);
+    
+    int num = 1;
+    int row = 0, col = n;
+    while (num <= n * n) {
+        
+        while (row < n && !matrix[row+1][col]) {
+            matrix[++row][col] = num;
+            num += 1;
+        }
+        
+        while (col > 1 && !matrix[row][col-1]) {
+            matrix[row][--col] = num;
+            num++;
+        }
+        
+        while (row > 1 && !matrix[row-1][col]) {
+            matrix[--row][col] = num;
+            num++;
+        }
+        
+        while (col < n && !matrix[row][col+1]) {
+            matrix[row][++col] = num;
+            num++;
+        }
+    }
+    
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            (j == 1) ? printf("%d", matrix[i][j]) : printf(" %d", matrix[i][j]);
+        }
+        printf("\n");
+    }
+    
+    return 0;
+}
+```
