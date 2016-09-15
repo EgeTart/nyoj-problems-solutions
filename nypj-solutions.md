@@ -313,3 +313,118 @@ int main() {
     return 0;
 }
 ```
+***
+
+##problem-34 韩信点兵
+描述
+
+相传韩信才智过人，从不直接清点自己军队的人数，只要让士兵先后以三人一排、五人一排、七人一排地变换队形，而他每次只掠一眼队伍的排尾就知道总人数了。输入3个非负整数a,b,c ，表示每种队形排尾的人数（a<3,b<5,c<7），输出总人数的最小值（或报告无解）。已知总人数不小于10，不超过100 。
+
+```c
+#include <stdio.h>
+
+int main() {
+    
+    int hasSolution = 0;
+    
+    int a, b, c;
+    scanf("%d %d %d", &a, &b, &c);
+    
+    for (int i = 10; i <= 100; ++i) {
+        if (i % 3 == a && i % 5 == b && i % 7 == c) {
+            hasSolution = 1;
+            printf("%d\n", i);
+            break;
+        }
+    }
+    
+    if (!hasSolution) {
+        printf("No answer\n");
+    }
+    
+    return 0;
+}
+```
+***
+
+##problem-39 水仙花数
+描述
+
+请判断一个数是不是水仙花数。
+其中水仙花数定义各个位数立方和等于它本身的三位数。
+
+```c
+#include <stdio.h>
+
+#define pow3(x) (x * x * x)
+
+int main() {
+    
+    int n;
+    while (~scanf("%d", &n) && n != 0) {
+        int a = n % 10;
+        int b = (n / 10) % 10;
+        int c = n / 100;
+        
+        if (pow3(a) + pow3(b) + pow3(c) == n) {
+            printf("Yes\n");
+        }
+        else {
+            printf("No\n");
+        }
+    }
+    
+    return 0;
+}
+```
+***
+
+##problem-40 公约数和公倍数
+描述
+
+小明被一个问题给难住了，现在需要你帮帮忙。问题是：给出两个正整数，求出它们的最大公约数和最小公倍数。
+
+```c
+#include <stdio.h>
+
+// 求两个数的最大公约数, 迭代版本
+//unsigned int getGCD(unsigned int x, unsigned int y) {
+//    int r;
+//    
+//    do {
+//        r = x % y;
+//        x = y;
+//        y = r;
+//    } while (y != 0);
+//    
+//    return x;
+//}
+
+// 求两个数的最大公约数, 递归版本
+unsigned int getGCD(unsigned int x, unsigned int y) {
+    if (y == 0) {
+        return x;
+    }
+    
+    return getGCD(y, x % y);
+}
+
+int main() {
+    
+    int testCount;
+    scanf("%d", &testCount);
+    
+    unsigned int x, y;
+    while (testCount--) {
+        
+        scanf("%d %d", &x, &y);
+        
+        unsigned int gcd = getGCD(x, y);
+        unsigned int lcm = x / gcd * y;
+        printf("%d %d\n", gcd, lcm);
+    }
+    
+    return 0;
+}
+```
+***
